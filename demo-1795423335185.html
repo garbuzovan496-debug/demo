@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf7f2; --card: #ffffff; --soft: #f3ece1; --line: #e6dccb;
+      --text: #3a2e25; --muted: #7a6a5c; --accent: #b88655; --accent-dark: #96683c;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; transition: max-width 0.3s ease; padding-top: 44px; }
+    body.mobile-preview { max-width: 390px; margin: 54px auto 24px; border: 10px solid #2b231d; border-radius: 32px; box-shadow: 0 24px 60px rgba(0,0,0,0.25); overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.15; }
+    .container { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    section { padding: 64px 0; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 24px; box-shadow: 0 12px 32px rgba(58,46,37,0.05); }
+    .btn { display: inline-block; padding: 14px 28px; border-radius: 99px; border: none; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; font-weight: 500; cursor: pointer; text-decoration: none; transition: 0.25s; }
+    .pill { padding: 10px 18px; border-radius: 99px; border: 1px solid var(--line); background: var(--card); color: var(--text); cursor: pointer; font-size: 14px; transition: 0.2s; }
+    .pill.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .demo-bar { position: fixed; top: 0; left: 0; right: 0; background: #2b231d; color: #fff; padding: 8px 16px; display: flex; justify-content: center; gap: 12px; align-items: center; font-size: 12px; z-index: 9999; }
+    .demo-bar button { background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25); color: #fff; padding: 4px 12px; border-radius: 99px; cursor: pointer; font-size: 12px; }
+    .demo-bar button.active { background: var(--accent); border-color: var(--accent); }
+    @media (max-width: 768px) { h1 { font-size: 34px !important; } section { padding: 44px 0; } .grid { grid-template-columns: 1fr !important; } }
+  </style>
+</head>
+<body>
+  <div class="demo-bar">
+    <button onclick="document.body.classList.toggle('mobile-preview')">Десктоп</button>
+    <button onclick="document.body.classList.toggle('mobile-preview')">Мобайл 390px</button>
+    <span>Готово к Google Таблицам и Яндекс Метрике</span>
+  </div>
+  <section id="services">
+    <div class="container">
+      <h1>Создание сайта для фестиваля и оформление соцсетей</h1>
+      <p>Обновление нового аккаунта по моде, сайт по дизайну, оформление соцсетей (YouTube, ВКонтакте) для продвижения.</p>
+    </div>
+  </section>
+  <section id="calc">
+    <div class="container">
+      <h2>Интерактивный калькулятор</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Дизайн сайта</h3>
+          <p>Создание уникального дизайна для вашего сайта</p>
+          <div class="pill active" data-name-id="item_1" data-price-id="item_1">1000 ₽</div>
+        </div>
+        <div class="card">
+          <h3>Оформление соцсетей</h3>
+          <p>Публикация контента и настройка профилей в соцсетях</p>
+          <div class="pill" data-name-id="item_2" data-price-id="item_2">500 ₽</div>
+        </div>
+        <div class="card">
+          <h3>Маркетинг в соцсетях</h3>
+          <p>Аналитика и оптимизация маркетинга в соцсетях</p>
+          <div class="pill" data-name-id="item_3" data-price-id="item_3">800 ₽</div>
+        </div>
+      </div>
+      <div id="total">Итого: 2300 ₽</div>
+    </div>
+  </section>
+  <section id="contact">
+    <div class="container">
+      <h2>Обратная связь</h2>
+      <form>
+        <input type="text" placeholder="Ваше имя">
+        <input type="email" placeholder="Ваш email">
+        <textarea placeholder="Ваше сообщение"></textarea>
+        <button type="submit">Отправить</button>
+      </form>
+    </div>
+  </section>
+  <script>
+    const CONFIG = { YM_COUNTER_ID: 0, SHEET_CSV_URL: "", DATALENS_ENABLED: true };
+    function trackGoal(goalName) {
+      if (CONFIG.YM_COUNTER_ID) {
+        ym(CONFIG.YM_COUNTER_ID, 'reachGoal', goalName);
+      }
+    }
+    function syncPricesFromSheet() {
+      if (CONFIG.SHEET_CSV_URL) {
+        fetch(CONFIG.SHEET_CSV_URL)
+          .then(response => response.text())
+          .then(csv => {
+            const rows = csv.split('\n').map(row => row.split(','));
+            rows.forEach(row => {
+              const nameId = row[0];
+              const priceId = row[1];
+              const price = row[2];
+              document.querySelector(`[data-name-id="${nameId}"]`).innerText = `${price} ₽`;
+              document.querySelector(`[data-price-id="${priceId}"]`).innerText = `${price} ₽`;
+            });
+          });
+      }
+    }
+    document.querySelector('#calc .pill').addEventListener('click', function() {
+      const price = this.innerText.replace(' ₽', '');
+      const total = document.querySelector('#total');
+      const currentTotal = total.innerText.replace('Итого: ', '').replace(' ₽', '');
+      total.innerText = `Итого: ${parseInt(currentTotal) + parseInt(price)} ₽`;
+      trackGoal('price_calculation');
+    });
+    document.querySelector('#contact form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      trackGoal('form_submission');
+      alert('Спасибо за вашу заявку!');
+    });
+    syncPricesFromSheet();
+  </script>
+</body>
+</html>
