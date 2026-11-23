@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Премиальный интерактивный прототип</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf7f2; --card: #ffffff; --soft: #f3ece1; --line: #e6dccb;
+      --text: #2c221b; --muted: #7a6a5c; --accent: #b88655; --accent-dark: #8f6236; --dark: #1f1915;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; padding-top: 46px; }
+    h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.12; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+    .demo-bar { position: fixed; top: 0; left: 0; right: 0; background: var(--dark); color: #fff; padding: 9px 16px; display: flex; justify-content: center; gap: 12px; align-items: center; font-size: 12px; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .demo-bar button { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 4px 14px; border-radius: 99px; cursor: pointer; font-size: 12px; }
+    .demo-bar button.active { background: var(--accent); border-color: var(--accent); }
+    header { background: rgba(250,247,242,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); position: sticky; top: 46px; z-index: 100; }
+    .nav { display: flex; justify-content: space-between; align-items: center; height: 76px; }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; }
+    .badge { display: inline-block; padding: 6px 16px; border-radius: 99px; background: var(--soft); border: 1px solid var(--line); color: var(--accent-dark); font-size: 12px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 18px; }
+    .hero { background: radial-gradient(circle at 85% 20%, #efe4d4 0%, var(--bg) 55%); border-bottom: 1px solid var(--line); }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center; }
+    .hero h1 { font-size: 54px; margin-bottom: 20px; color: var(--dark); }
+    .hero p { font-size: 17px; color: var(--muted); margin-bottom: 32px; max-width: 560px; }
+    .hero-box { background: var(--dark); color: #fff; border-radius: 26px; padding: 36px; box-shadow: 0 24px 50px rgba(31,25,21,0.18); }
+    .hero-box h3 { font-size: 28px; color: #f3dfc8; margin-bottom: 16px; }
+    .hero-box ul { list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: rgba(255,255,255,0.85); }
+    .hero-box li::before { content: "✦ "; color: var(--accent); }
+    .btn { display: inline-block; padding: 14px 30px; border-radius: 99px; border: none; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; font-weight: 500; font-size: 14px; cursor: pointer; text-decoration: none; box-shadow: 0 10px 24px rgba(184,134,85,0.28); }
+    .section-title { text-align: center; max-width: 680px; margin: 0 auto 48px; }
+    .section-title h2 { font-size: 42px; margin-bottom: 12px; color: var(--dark); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 32px 28px; box-shadow: 0 12px 32px rgba(44,34,27,0.04); display: flex; flex-direction: column; justify-content: space-between; }
+    .card h3 { font-size: 26px; margin-bottom: 12px; color: var(--dark); }
+    .card p { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+    .price-tag { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 700; color: var(--accent-dark); padding-top: 16px; border-top: 1px solid var(--line); }
+    @media (max-width: 860px) { .hero-grid, .grid-3 { grid-template-columns: 1fr !important; } .hero h1 { font-size: 38px !important; } .nav-links { display: none; } section { padding: 52px 0; } }
+  </style>
+</head>
+<body>
+  <div class="demo-bar">
+    <span>Режим просмотра:</span>
+    <button id="btn-desk" class="active">💻 Десктоп</button>
+    <button id="btn-mob">📱 Мобайл 390px</button>
+    <span style="opacity:0.75; margin-left:8px;">Готово к интеграции</span>
+  </div>
+
+  <!-- СЮДА ВСТАВЛЯЕТСЯ HTML-КОД ОТ QWEN -->
+  
+  <div class="demo-bar">
+    <button class="active" onclick="changeView('hero')">Hero</button>
+    <button onclick="changeView('services')">Services</button>
+    <button onclick="changeView('calc')">Calc</button>
+    <button onclick="changeView('contact')">Contact</button>
+  </div>
+  <div class="nav">
+    <div class="logo">My Company</div>
+    <div class="nav-links">
+      <a href="#">Home</a>
+      <a href="#">About</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </div>
+    <button class="btn">Get Started</button>
+  </div>
+  <div class="hero" id="hero">
+    <div class="hero-grid">
+      <div class="badge">New</div>
+      <h1>Welcome to My Company</h1>
+      <p>We are a leading provider of high-quality services</p>
+      <button class="btn">Learn More</button>
+    </div>
+    <div class="hero-box">
+      <h3>Why Choose Us?</h3>
+      <p>We offer the best services in the industry</p>
+      <p>Our team is highly skilled and experienced</p>
+      <p>Our prices are competitive and transparent</p>
+    </div>
+    <div class="stat-row">
+      <div class="stat">
+        <h4>100+</h4>
+        <p>Happy Customers</p>
+      </div>
+      <div class="stat">
+        <h4>5+</h4>
+        <p>Years of Experience</p>
+      </div>
+      <div class="stat">
+        <h4>24/7</h4>
+        <p>Customer Support</p>
+      </div>
+    </div>
+  </div>
+  <div class="services" id="services">
+    <div class="section-title">Our Services</div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Web Development</h3>
+        <p>We create custom websites that are fast, secure, and user-friendly</p>
+        <p>Our team of developers uses the latest technologies to build high-quality websites</p>
+        <p>Our prices are competitive and transparent</p>
+        <div class="price-tag">$1000+</div>
+      </div>
+      <div class="card">
+        <h3>Graphic Design</h3>
+        <p>We create stunning graphics that are tailored to your brand</p>
+        <p>Our team of designers uses the latest software to create high-quality graphics</p>
+        <p>Our prices are competitive and transparent</p>
+        <div class="price-tag">$500+</div>
+      </div>
+      <div class="card">
+        <h3>Marketing</h3>
+        <p>We help you reach your target audience and increase your online presence</p>
+        <p>Our team of experts uses the latest marketing strategies to help you grow your business</p>
+        <p>Our prices are competitive and transparent</p>
+        <div class="price-tag">$2000+</div>
+      </div>
+    </div>
+  </div>
+  <div class="calc" id="calc">
+    <div class="calc-wrap">
+      <div class="left">
+        <h3>Calculate Your Quote</h3>
+        <p>Enter the details of your project to get a quote</p>
+        <div class="form-group">
+          <label for="service">Service:</label>
+          <select id="service">
+            <option value="web-dev">Web Development</option>
+            <option value="graphic-design">Graphic Design</option>
+            <option value="marketing">Marketing</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="hours">Hours:</label>
+          <input type="number" id="hours" min="1" value="1">
+        </div>
+        <div class="form-group">
+          <label for="discount">Discount:</label>
+          <input type="number" id="discount" min="0" max="100" value="0">
+        </div>
+        <div class="form-group">
+          <button class="btn" onclick="calculateQuote()">Calculate Quote</button>
+        </div>
+      </div>
+      <div class="right">
+        <h3>Quote Summary</h3>
+        <div class="calc-summary">
+          <p>Service: <span id="service-summary"></span></p>
+          <p>Hours: <span id="hours-summary"></span></p>
+          <p>Discount: <span id="discount-summary"></span></p>
+          <p>Total: <span id="total-summary">$0</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="contact" id="contact">
+    <div class="contact-box">
+      <h3>Contact Us</h3>
+      <p>Get in touch with us today</p>
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Email:</label>
+        <input type="email" id="email" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message:</label>
+        <textarea id="message" required></textarea>
+      </div>
+      <div class="form-group">
+        <button class="btn" onclick="sendMessage()">Send Message</button>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <p>&copy; 2023 My Company. All rights reserved.</p>
+  </div>
+  <script>
+    function changeView(view) {
+      const views = ['hero', 'services', 'calc', 'contact'];
+      views.forEach(v => {
+        document.getElementById(v).style.display = v === view ? 'block' : 'none';
+      });
+    }
+    function calculateQuote() {
+      const service = document.getElementById('service').value;
+      const hours = document.getElementById('hours').value;
+      const discount = document.getElementById('discount').value;
+      let price = 0;
+      if (service === 'web-dev') {
+        price = 1000 * hours;
+      } else if (service === 'graphic-design') {
+        price = 500 * hours;
+      } else if (service === 'marketing') {
+        price = 2000 * hours;
+      }
+      const total = price - (price * discount / 100);
+      document.getElementById('service-summary').innerText = service;
+      document.getElementById('hours-summary').innerText = hours;
+      document.getElementById('discount-summary').innerText = `${discount}%`;
+      document.getElementById('total-summary').innerText = `$${total.toFixed(2)}`;
+    }
+    function sendMessage() {
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+      alert(`Thank you, ${name}! We have received your message and will get back to you shortly.`);
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('message').value = '';
+    }
+  </script>
+
+  <!-- КОНЕЦ ВСТАВКИ -->
+
+  <script>
+    // Простой скрипт для переключения мобильного вида
+    document.getElementById('btn-mob').addEventListener('click', function() {
+      document.body.style.maxWidth = '390px';
+      document.body.style.margin = '56px auto';
+      document.body.style.border = '10px solid #1f1915';
+      document.body.style.borderRadius = '34px';
+      this.classList.add('active');
+      document.getElementById('btn-desk').classList.remove('active');
+    });
+    document.getElementById('btn-desk').addEventListener('click', function() {
+      document.body.style.maxWidth = '100%';
+      document.body.style.margin = '0';
+      document.body.style.border = 'none';
+      this.classList.add('active');
+      document.getElementById('btn-mob').classList.remove('active');
+    });
+  </script>
+</body>
+</html>
