@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Премиальный интерактивный прототип</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #faf7f2; --card: #ffffff; --soft: #f3ece1; --line: #e6dccb;
+      --text: #2c221b; --muted: #7a6a5c; --accent: #b88655; --accent-dark: #8f6236; --dark: #1f1915;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Montserrat', sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; padding-top: 46px; }
+    h1, h2, h3, .serif { font-family: 'Cormorant Garamond', serif; font-weight: 600; line-height: 1.12; }
+    .container { max-width: 1140px; margin: 0 auto; padding: 0 24px; }
+    section { padding: 80px 0; }
+    .demo-bar { position: fixed; top: 0; left: 0; right: 0; background: var(--dark); color: #fff; padding: 9px 16px; display: flex; justify-content: center; gap: 12px; align-items: center; font-size: 12px; z-index: 9999; border-bottom: 1px solid rgba(255,255,255,0.1); }
+    .demo-bar button { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 4px 14px; border-radius: 99px; cursor: pointer; font-size: 12px; }
+    .demo-bar button.active { background: var(--accent); border-color: var(--accent); }
+    header { background: rgba(250,247,242,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); position: sticky; top: 46px; z-index: 100; }
+    .nav { display: flex; justify-content: space-between; align-items: center; height: 76px; }
+    .logo { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { text-decoration: none; color: var(--muted); font-size: 14px; font-weight: 500; }
+    .badge { display: inline-block; padding: 6px 16px; border-radius: 99px; background: var(--soft); border: 1px solid var(--line); color: var(--accent-dark); font-size: 12px; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; margin-bottom: 18px; }
+    .hero { background: radial-gradient(circle at 85% 20%, #efe4d4 0%, var(--bg) 55%); border-bottom: 1px solid var(--line); }
+    .hero-grid { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center; }
+    .hero h1 { font-size: 54px; margin-bottom: 20px; color: var(--dark); }
+    .hero p { font-size: 17px; color: var(--muted); margin-bottom: 32px; max-width: 560px; }
+    .hero-box { background: var(--dark); color: #fff; border-radius: 26px; padding: 36px; box-shadow: 0 24px 50px rgba(31,25,21,0.18); }
+    .hero-box h3 { font-size: 28px; color: #f3dfc8; margin-bottom: 16px; }
+    .hero-box ul { list-style: none; display: flex; flex-direction: column; gap: 12px; font-size: 14px; color: rgba(255,255,255,0.85); }
+    .hero-box li::before { content: "✦ "; color: var(--accent); }
+    .btn { display: inline-block; padding: 14px 30px; border-radius: 99px; border: none; background: linear-gradient(135deg, var(--accent), var(--accent-dark)); color: #fff; font-weight: 500; font-size: 14px; cursor: pointer; text-decoration: none; box-shadow: 0 10px 24px rgba(184,134,85,0.28); }
+    .section-title { text-align: center; max-width: 680px; margin: 0 auto 48px; }
+    .section-title h2 { font-size: 42px; margin-bottom: 12px; color: var(--dark); }
+    .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 32px 28px; box-shadow: 0 12px 32px rgba(44,34,27,0.04); display: flex; flex-direction: column; justify-content: space-between; }
+    .card h3 { font-size: 26px; margin-bottom: 12px; color: var(--dark); }
+    .card p { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+    .price-tag { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 700; color: var(--accent-dark); padding-top: 16px; border-top: 1px solid var(--line); }
+    @media (max-width: 860px) { .hero-grid, .grid-3 { grid-template-columns: 1fr !important; } .hero h1 { font-size: 38px !important; } .nav-links { display: none; } section { padding: 52px 0; } }
+  </style>
+</head>
+<body>
+  <div class="demo-bar">
+    <span>Режим просмотра:</span>
+    <button id="btn-desk" class="active">💻 Десктоп</button>
+    <button id="btn-mob">📱 Мобайл 390px</button>
+    <span style="opacity:0.75; margin-left:8px;">Готово к интеграции</span>
+  </div>
+
+  <!-- СЮДА ВСТАВЛЯЕТСЯ HTML-КОД ОТ QWEN -->
+  
+  <div class="demo-bar">
+    <button class="active" onclick="switchView('desktop')">Десктоп</button>
+    <button onclick="switchView('mobile')">Мобайл 390px</button>
+    <span>Интеграция: Google Таблицы + Яндекс Метрика</span>
+  </div>
+  <header class="nav">
+    <div class="logo">Remonter</div>
+    <nav class="nav-links">
+      <a href="#services">Услуги</a>
+      <a href="#calc">Расчёт</a>
+      <a href="#contact">Контакты</a>
+    </nav>
+    <button class="btn">Заказать услугу</button>
+  </header>
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="badge">Услуги по ремонту квартир</div>
+      <div>
+        <h1>Ваш дом - ваша семья. Давайте сделать его идеальным!</h1>
+        <p>Мы предлагаем профессиональные услуги по ремонту и отделке квартир. От кухни до балкона - всё под контролем.</p>
+        <button class="btn">Заказать услугу</button>
+      </div>
+      <div class="hero-box">
+        <h3>Наша команда</h3>
+        <p>Мы - опытные специалисты, готовые взяться за любой ремонт.</p>
+        <div class="stat-row">
+          <span>10+</span>
+          <small>лет опыта</small>
+        </div>
+        <div class="stat-row">
+          <span>500+</span>
+          <small>успешных проектов</small>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section id="services">
+    <div class="section-title">Наши услуги</div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Отделка кухни</h3>
+        <p>Современные материалы и качественный ремонт кухни.</p>
+        <div class="price-tag">От 50 000 руб.</div>
+      </div>
+      <div class="card">
+        <h3>Отделка ванных комнат</h3>
+        <p>Удобные и стильные ванные комнаты от профессионалов.</p>
+        <div class="price-tag">От 30 000 руб.</div>
+      </div>
+      <div class="card">
+        <h3>Отделка спален</h3>
+        <p>Стильные и уютные спальни для вашего дома.</p>
+        <div class="price-tag">От 20 000 руб.</div>
+      </div>
+    </div>
+  </section>
+  <section id="calc">
+    <div class="section-title">Расчёт стоимости</div>
+    <div class="calc-wrap">
+      <div>
+        <h3>Выберите услугу:</h3>
+        <div class="pills">
+          <div class="pill active" onclick="selectService('кухня')">Кухня</div>
+          <div class="pill" onclick="selectService('ванная')">Ванная комната</div>
+          <div class="pill" onclick="selectService('спальня')">Спальня</div>
+        </div>
+        <h3>Выберите размер:</h3>
+        <div class="pills">
+          <div class="pill active" onclick="selectSize('маленький')">Маленький</div>
+          <div class="pill" onclick="selectSize('средний')">Средний</div>
+          <div class="pill" onclick="selectSize('большой')">Большой</div>
+        </div>
+        <h3>Выберите материалы:</h3>
+        <div class="pills">
+          <div class="pill active" onclick="selectMaterials('эконом')">Эконом</div>
+          <div class="pill" onclick="selectMaterials('стандарт')">Стандарт</div>
+          <div class="pill" onclick="selectMaterials('высококачественный')">Высококачественный</div>
+        </div>
+        <button class="btn" onclick="calculate()">Рассчитать стоимость</button>
+      </div>
+      <div class="calc-summary">
+        <h3>Итого:</h3>
+        <div class="total-val" id="total-val">0 руб.</div>
+      </div>
+    </div>
+  </section>
+  <section id="contact">
+    <div class="section-title">Контакты</div>
+    <div class="contact-box">
+      <div>
+        <h3>Адрес:</h3>
+        <p>г. Москва, улица Ленина, д. 1</p>
+      </div>
+      <div>
+        <h3>Телефон:</h3>
+        <p>+7 (999) 123-45-67</p>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <p>&copy; 2023 Remonter. Все права защищены.</p>
+  </footer>
+  <script>
+    let currentView = 'desktop';
+    let selectedService = 'кухня';
+    let selectedSize = 'маленький';
+    let selectedMaterials = 'эконом';
+
+    function switchView(view) {
+      currentView = view;
+      document.body.className = view;
+    }
+
+    function selectService(service) {
+      selectedService = service;
+      updateCalculation();
+    }
+
+    function selectSize(size) {
+      selectedSize = size;
+      updateCalculation();
+    }
+
+    function selectMaterials(materials) {
+      selectedMaterials = materials;
+      updateCalculation();
+    }
+
+    function calculate() {
+      let price = 0;
+      if (selectedService === 'кухня') {
+        if (selectedSize === 'маленький') {
+          price = 50000;
+        } else if (selectedSize === 'средний') {
+          price = 75000;
+        } else if (selectedSize === 'большой') {
+          price = 100000;
+        }
+      } else if (selectedService === 'ванная') {
+        if (selectedSize === 'маленький') {
+          price = 30000;
+        } else if (selectedSize === 'средний') {
+          price = 45000;
+        } else if (selectedSize === 'большой') {
+          price = 60000;
+        }
+      } else if (selectedService === 'спальня') {
+        if (selectedSize === 'маленький') {
+          price = 20000;
+        } else if (selectedSize === 'средний') {
+          price = 30000;
+        } else if (selectedSize === 'большой') {
+          price = 40000;
+        }
+      }
+      if (selectedMaterials === 'стандарт') {
+        price *= 1.1;
+      } else if (selectedMaterials === 'высококачественный') {
+        price *= 1.2;
+      }
+      document.getElementById('total-val').innerText = price + ' руб.';
+    }
+
+    function updateCalculation() {
+      calculate();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+      calculate();
+    });
+  </script>
+
+  <!-- КОНЕЦ ВСТАВКИ -->
+
+  <script>
+    // Простой скрипт для переключения мобильного вида
+    document.getElementById('btn-mob').addEventListener('click', function() {
+      document.body.style.maxWidth = '390px';
+      document.body.style.margin = '56px auto';
+      document.body.style.border = '10px solid #1f1915';
+      document.body.style.borderRadius = '34px';
+      this.classList.add('active');
+      document.getElementById('btn-desk').classList.remove('active');
+    });
+    document.getElementById('btn-desk').addEventListener('click', function() {
+      document.body.style.maxWidth = '100%';
+      document.body.style.margin = '0';
+      document.body.style.border = 'none';
+      this.classList.add('active');
+      document.getElementById('btn-mob').classList.remove('active');
+    });
+  </script>
+</body>
+</html>
