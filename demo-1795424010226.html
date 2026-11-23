@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .demo-bar {
+      background-color: #333;
+      color: #fff;
+      padding: 10px 0;
+      text-align: center;
+    }
+    .demo-bar button {
+      background-color: #555;
+      border: none;
+      color: #fff;
+      padding: 5px 10px;
+      margin: 0 5px;
+      cursor: pointer;
+    }
+    .demo-bar button.active {
+      background-color: #777;
+    }
+    .nav {
+      background-color: #fff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    .nav .logo {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .nav .nav-links {
+      display: inline-block;
+      margin-left: 20px;
+    }
+    .nav .nav-links a {
+      color: #333;
+      text-decoration: none;
+      margin: 0 15px;
+    }
+    .nav .btn {
+      background-color: #007BFF;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .hero {
+      background-color: #fff;
+      padding: 50px 0;
+      text-align: center;
+    }
+    .hero .hero-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .hero .badge {
+      background-color: #007BFF;
+      color: #fff;
+      padding: 10px 20px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-size: 36px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+    }
+    .hero .hero-box {
+      background-color: #333;
+      color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      margin: 0 auto;
+    }
+    .hero .hero-box h3 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .hero .hero-box p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .hero .hero-box .stat-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+    .hero .hero-box .stat-row span {
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .services {
+      background-color: #fff;
+      padding: 50px 0;
+      text-align: center;
+    }
+    .services .section-title {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 30px;
+    }
+    .services .grid-3 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .services .card {
+      background-color: #f9f9f9;
+      padding: 30px;
+      border-radius: 10px;
+      margin: 15px;
+      width: 300px;
+      text-align: left;
+    }
+    .services .card h3 {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+    .services .card p {
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .services .card .price-tag {
+      font-size: 24px;
+      font-weight: bold;
+      color: #007BFF;
+    }
+    .calc {
+      background-color: #fff;
+      padding: 50px 0;
+      text-align: center;
+    }
+    .calc .calc-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .calc .calc-wrap .pills {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    .calc .calc-wrap .pill {
+      background-color: #f9f9f9;
+      padding: 10px 20px;
+      border-radius: 10px;
+      margin: 0 10px;
+      cursor: pointer;
+    }
+    .calc .calc-wrap .pill.active {
+      background-color: #007BFF;
+      color: #fff;
+    }
+    .calc .calc-wrap .check-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .calc .calc-wrap .check-item input {
+      margin-right: 10px;
+    }
+    .calc .calc-wrap .calc-summary {
+      background-color: #f9f9f9;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .calc .calc-wrap .calc-summary .total-val {
+      font-size: 36px;
+      font-weight: bold;
+      color: #007BFF;
+    }
+    .contact {
+      background-color: #333;
+      color: #fff;
+      padding: 50px 0;
+      text-align: center;
+    }
+    .contact .contact-box {
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: left;
+      margin: 0 auto;
+      width: 500px;
+    }
+    .contact .contact-box .form-group {
+      margin-bottom: 20px;
+    }
+    .contact .contact-box .form-group input,
+    .contact .contact-box .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .contact .contact-box .form-group input[type="submit"] {
+      background-color: #007BFF;
+      border: none;
+      color: #fff;
+      padding: 10px 20px;
+      cursor: pointer;
+    }
+    .contact .contact-box .form-group input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+    .footer {
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 20px 0;
+      margin-top: 50px;
+    }
+    @media (max-width: 768px) {
+      .hero .hero-grid {
+        flex-direction: column;
+      }
+      .services .grid-3 {
+        flex-direction: column;
+      }
+      .calc .calc-wrap {
+        flex-direction: column;
+      }
+      .contact .contact-box {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-bar">
+    <button class="active">Десктоп</button>
+    <button>Мобайл 390px</button>
+    <span>Интеграция: Google Таблицы + Яндекс Метрика</span>
+  </div>
+  <header class="nav">
+    <div class="logo">Магазин</div>
+    <div class="nav-links">
+      <a href="#services">Услуги</a>
+      <a href="#calc">Расчёт</a>
+      <a href="#contact">Контакты</a>
+    </div>
+    <button class="btn">Заказать</button>
+  </header>
+  <section class="hero">
+    <div class="hero-grid">
+      <div class="badge">Уникальный дизайн</div>
+      <h1>Ваш магазин в кармане</h1>
+      <p>Создайте сайт-визитку для вашего бизнеса и привлекайте клиентов</p>
+      <button class="btn">Заказать</button>
+    </div>
+    <div class="hero-box">
+      <h3>Преимущества</h3>
+      <p>Удобный интерфейс для редактирования</p>
+      <p>Яндекс карта для геолокации</p>
+      <p>Форма отправки сообщений на email</p>
+      <div class="stat-row">
+        <span>6 фото магазина</span>
+        <span>3 сотрудника</span>
+      </div>
+    </div>
+  </section>
+  <section id="services" class="services">
+    <div class="section-title">Наши услуги</div>
+    <div class="grid-3">
+      <div class="card">
+        <h3>Создание сайта</h3>
+        <p>Создание современного и удобного сайта для вашего бизнеса</p>
+        <div class="price-tag">От 5000 ₽</div>
+      </div>
+      <div class="card">
+        <h3>Дизайн</h3>
+        <p>Создание уникального дизайна для вашего сайта</p>
+        <div class="price-tag">От 3000 ₽</div>
+      </div>
+      <div class="card">
+        <h3>Поддержка</h3>
+        <p>Постоянная поддержка и обновление вашего сайта</p>
+        <div class="price-tag">От 1000 ₽</div>
+      </div>
+    </div>
+  </section>
+  <section id="calc" class="calc">
+    <div class="calc-wrap">
+      <div class="pills">
+        <div class="pill active">Создание сайта</div>
+        <div class="pill">Дизайн</div>
+        <div class="pill">Поддержка</div>
+      </div>
+      <div class="check-item">
+        <input type="checkbox" id="checkbox1" name="checkbox1">
+        <label for="checkbox1">6 фото магазина</label>
+      </div>
+      <div class="check-item">
+        <input type="checkbox" id="checkbox2" name="checkbox2">
+        <label for="checkbox2">3 сотрудника</label>
+      </div>
+      <div class="calc-summary">
+        <div class="total-val">5000 ₽</div>
+      </div>
+    </div>
+  </section>
+  <section id="contact" class="contact">
+    <div class="contact-box">
+      <h3>Свяжитесь с нами</h3>
+      <form action="#" method="post">
+        <div class="form-group">
+          <input type="text" name="name" placeholder="Имя">
+        </div>
+        <div class="form-group">
+          <input type="email" name="email" placeholder="Email">
+        </div>
+        <div class="form-group">
+          <textarea name="message" placeholder="Сообщение"></textarea>
+        </div>
+        <div class="form-group">
+          <input type="submit" value="Отправить">
+        </div>
+      </form>
+    </div>
+  </section>
+  <footer class="footer">
+    <p>&copy; 2022 Магазин. Все права защищены.</p>
+  </footer>
+  <script>
+    const demoBarButtons = document.querySelectorAll('.demo-bar button');
+    demoBarButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        demoBarButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>
